@@ -2,6 +2,8 @@
 
 #import <React/RCTBundleURLProvider.h>
 
+#import <APIGuard/APIGuard.h>
+
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -10,6 +12,9 @@
   // You can add your custom initial props in the dictionary below.
   // They will be passed down to the ViewController used by React Native.
   self.initialProps = @{};
+  
+  NSString *configFilePath = [[NSBundle mainBundle] pathForResource:@"apiguard" ofType:@"json"];
+  [[APIGuard sharedInstance] initializeWithConfigFile:configFilePath withEnvironment: @"default" delegate: self];
 
   return [super application:application didFinishLaunchingWithOptions:launchOptions];
 }
